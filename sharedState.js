@@ -6,7 +6,7 @@ window.sharedState = {
     fftData: {size: 1, fftRangeMin: Infinity, fftRangeMax: -Infinity,}
 };
 
-console.log(sharedState.fftData.x);
+// console.log(sharedState.fftData.x);
 // export const sharedState = {
 //     // centroidPosition: { x:0, y:0 }
 

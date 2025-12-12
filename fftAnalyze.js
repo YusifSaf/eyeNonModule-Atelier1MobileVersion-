@@ -23,6 +23,8 @@ function setup() {
     //ML5 Setup
     createCanvas(640, 480);
 
+    showDebug();
+
     enableMicTap("Press to Enable Mic");
     initializeCamera();
 
@@ -114,7 +116,8 @@ function videoReady() {
 }
 
 function modelReady() {
-  console.log('FaceMesh model loaded!');
+  // console.log('FaceMesh model loaded!');
+  debug('FaceMesh model loaded!');
   facemesh.detectStart(cam.videoElement, gotFaces);
 }
 

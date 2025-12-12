@@ -168,7 +168,7 @@ function animate(time) {
     renderer.render(scene, camera);
 
     let fftSize = THREE.MathUtils.mapLinear(sharedState.fftData.size, rangeMin, rangeMax, eyeSizeMin, eyeSizeMax);
-    console.log(sharedState.fftData.size);
+    // console.log(sharedState.fftData.size);
     eyes.forEach((eye) => {
       eye.update();
       if (eye.model && eye.targetScale){
