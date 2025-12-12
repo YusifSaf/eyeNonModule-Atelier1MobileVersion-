@@ -1,0 +1,11 @@
+Model Information:
+* title:	Trash Bin - 13MB
+* source:	https://sketchfab.com/3d-models/trash-bin-13mb-ed973eacb1a94a488dc80b34ab3bb315
+* author:	Mehdi Shahsavan (https://sketchfab.com/ahmagh2e)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Trash Bin - 13MB" (https://sketchfab.com/3d-models/trash-bin-13mb-ed973eacb1a94a488dc80b34ab3bb315) by Mehdi Shahsavan (https://sketchfab.com/ahmagh2e) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

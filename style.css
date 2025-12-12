@@ -1,0 +1,87 @@
+ @font-face {
+            font-family: 'Konkhmer Sleokchher';
+            src: url('../fonts/KonkhmerSleokchher-Regular.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #defaultCanvas0 {
+        display: none !important;
+    }
+
+        body {
+            font-family: 'Konkhmer Sleokchher', sans-serif;
+            background: url('../materials/background1.png') center center / cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #p5Canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            top: 6rem;
+            z-index: 5;
+            text-align: center;
+            padding: 2rem;
+            pointer-events: none;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1rem;
+            color: white;
+            margin-bottom: -1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2rem;
+            pointer-events: auto;
+        }
+
+        .main-title:hover {
+            font-size: 4.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.5rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.75);
+            letter-spacing: 0.8rem;
+            text-transform: uppercase;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+        }

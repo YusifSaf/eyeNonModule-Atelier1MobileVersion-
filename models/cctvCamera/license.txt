@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low-poly CCTV Camera
+* source:	https://sketchfab.com/3d-models/low-poly-cctv-camera-e7beed0c6d0c4685bd057ccae4ec9138
+* author:	Microchip (https://sketchfab.com/aidenldev)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low-poly CCTV Camera" (https://sketchfab.com/3d-models/low-poly-cctv-camera-e7beed0c6d0c4685bd057ccae4ec9138) by Microchip (https://sketchfab.com/aidenldev) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

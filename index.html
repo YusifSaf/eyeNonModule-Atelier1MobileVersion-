@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Tracking Project</title>
+    
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5-phone@1.6.4/dist/p5-phone.min.js"></script>
+    
+    <!-- ml5.js -->
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/jsm/"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="bg"></canvas>
+    <div class="content-wrapper">
+        <h1 class="main-title"></h1>
+        <p class="subtitle"></p>
+    </div>
+    <script src="fftAnalyze.js"></script>
+    <!-- <script src="faceDetectionSketch.js"></script> -->
+    <script src="sharedState.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="eyeClass.js"></script>
+
+    <!-- <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // ==============================================
+        // EYE MODEL CLASS
+        // ==============================================
+        
+        // ==============================================
+        // THREE.JS SETUP
+        // ==============================================
+        
+
+        // ==============================================
+        // P5.JS FACE DETECTION
+        // ==============================================
+        
+    </script> -->
+</body>
+</html>
