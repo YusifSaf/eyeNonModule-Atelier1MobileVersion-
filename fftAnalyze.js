@@ -25,7 +25,7 @@ function setup() {
 
     showDebug();
 
-    // enableMicTap("Press to Enable Mic");
+    enableMicTap("Press to Enable Mic");
     // initializeCamera();
 
     // // Camera constraints
