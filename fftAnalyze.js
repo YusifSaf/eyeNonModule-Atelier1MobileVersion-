@@ -45,10 +45,10 @@ function setup() {
 
     
     // FFT Setup
-    // mic.start();            // start capturing audio
+    mic.start();            // start capturing audio
 
-    // fft = new p5.FFT();     // initialize FFT
-    // fft.setInput(mic);      // connect mic to FFT
+    fft = new p5.FFT();     // initialize FFT
+    fft.setInput(mic);      // connect mic to FFT
     
 }
 
