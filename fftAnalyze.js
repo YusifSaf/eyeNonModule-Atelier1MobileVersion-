@@ -29,6 +29,7 @@ function setup() {
     // enableMicTap("Press to Enable Mic");
 
     initializeCamera();
+    //wtf
 
     // // Camera constraints
     // let constraints = {
