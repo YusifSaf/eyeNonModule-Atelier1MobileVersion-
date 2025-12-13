@@ -1,7 +1,7 @@
- @font-face {
+ /* @font-face {
             font-family: 'Konkhmer Sleokchher';
             src: url('../fonts/KonkhmerSleokchher-Regular.ttf');
-        }
+        } */
 
         * {
             margin: 0;
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Konkhmer Sleokchher', sans-serif;
-            background: url('../materials/background1.png') center center / cover no-repeat;
+            /* background: url('../materials/background1.png') center center / cover no-repeat; */
             min-height: 100vh;
             display: flex;
             flex-direction: column;

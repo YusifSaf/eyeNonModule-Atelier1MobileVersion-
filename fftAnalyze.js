@@ -27,7 +27,8 @@ function setup() {
 
     mic = new p5.AudioIn(); // initialize mic
     enableMicTap("Press to Enable Mic");
-    initializeCamera();
+
+    // initializeCamera();
 
     // // Camera constraints
     // let constraints = {
