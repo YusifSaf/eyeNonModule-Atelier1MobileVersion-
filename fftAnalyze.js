@@ -24,7 +24,7 @@ function setup() {
     createCanvas(640, 480);
 
     showDebug();
-    
+
     mic = new p5.AudioIn(); // initialize mic
     enableMicTap("Press to Enable Mic");
     initializeCamera();
@@ -77,7 +77,7 @@ function draw() {
     }
 
     drawUI();
-    debug(sharedState.fftData.size);
+    // debug(sharedState.fftData.size);
 }
 
 function fftVisualiserDebug(){
