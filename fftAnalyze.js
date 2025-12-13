@@ -51,6 +51,36 @@ function setup() {
     
 }
 
+function initializeCamera() {
+  lockGestures();  // Prevent phone gestures
+
+  // Create phone camera
+  cam = createPhoneCamera(this.cameraMode, this.mirror, this.displayMode);
+  enableCameraTap();  // Enable tap to toggle video
+
+  // Wait for camera to be ready before creating model
+  cam.onReady(() => {
+    videoReady();
+  });
+}
+
+function videoReady() {
+  let options = {
+    maxFaces: 1,
+    refineLandmarks: false,
+    runtime: 'mediapipe',
+    flipHorizontal: false
+  };
+
+  facemesh = ml5.faceMesh(options, () => {
+    debug('FaceMesh model loaded!');
+    facemesh.detectStart(cam.videoElement, (results) => {
+      faces = results;
+    });
+    cameraReady = true;
+  });
+}
+
 function draw() {
     //FFT Draw
     background(0);
@@ -91,41 +121,16 @@ function fftVisualiserDebug(){
 }
 
 // ML5 Functions
-function initializeCamera() {
-  lockGestures();  // Prevent phone gestures
 
-  // Create phone camera
-  cam = createPhoneCamera(this.cameraMode, this.mirror, this.displayMode);
-  enableCameraTap();  // Enable tap to toggle video
+// function modelReady() {
+//   // console.log('FaceMesh model loaded!');
+//   debug('FaceMesh model loaded!');
+//   facemesh.detectStart(cam.videoElement, gotFaces);
+// }
 
-  // Wait for camera to be ready before creating model
-  cam.onReady(() => {
-    videoReady();
-  });
-}
-
-function videoReady() {
-  cameraReady = true;
-
-  let options = {
-    maxFaces: 1,
-    refineLandmarks: false,
-    runtime: 'mediapipe',
-    flipHorizontal: false
-  };
-
-  facemesh = ml5.faceMesh(options, modelReady);
-}
-
-function modelReady() {
-  // console.log('FaceMesh model loaded!');
-  debug('FaceMesh model loaded!');
-  facemesh.detectStart(cam.videoElement, gotFaces);
-}
-
-function gotFaces(results) {
-  faces = results;
-}
+// function gotFaces(results) {
+//   faces = results;
+// }
 
 function drawFaceTracking() {
   let face = faces[0];
@@ -240,15 +245,15 @@ function drawUI() {
   pop();
 }
 
-function mousePressed() {
-  SHOW_VIDEO = !SHOW_VIDEO;
-  return false;
-}
+// function mousePressed() {
+//   SHOW_VIDEO = !SHOW_VIDEO;
+//   return false;
+// }
 
-function touchStarted() {
-  SHOW_VIDEO = !SHOW_VIDEO;
-  return false;
-}
+// function touchStarted() {
+//   SHOW_VIDEO = !SHOW_VIDEO;
+//   return false;
+// }
 
 // function windowResized() {
 //   resizeCanvas(windowWidth, windowHeight);
