@@ -78,7 +78,7 @@ function draw() {
     }
 
     drawUI();
-    // debug(sharedState.fftData.size);
+    debug(sharedState.fftData.size);
 }
 
 // function fftVisualiserDebug(){
