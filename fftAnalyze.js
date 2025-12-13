@@ -26,7 +26,7 @@ function setup() {
     showDebug();
 
     mic = new p5.AudioIn(); // initialize mic
-    enableMicTap("Press to Enable Mic");
+    // enableMicTap("Press to Enable Mic");
 
     initializeCamera();
 
@@ -44,7 +44,7 @@ function setup() {
 
     
     // FFT Setup
-    // mic.start();            // start capturing audio
+    mic.start();            // start capturing audio
 
     fft = new p5.FFT();     // initialize FFT
     fft.setInput(mic);      // connect mic to FFT
