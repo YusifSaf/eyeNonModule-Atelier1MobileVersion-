@@ -28,7 +28,7 @@ function setup() {
     mic = new p5.AudioIn(); // initialize mic
     enableMicTap("Press to Enable Mic");
 
-    // initializeCamera();
+    initializeCamera();
 
     // // Camera constraints
     // let constraints = {
@@ -44,7 +44,6 @@ function setup() {
 
     
     // FFT Setup
-    
     // mic.start();            // start capturing audio
 
     fft = new p5.FFT();     // initialize FFT
@@ -91,170 +90,170 @@ function fftVisualiserDebug(){
     }
 }
 
-// // ML5 Functions
-// function initializeCamera() {
-//   lockGestures();  // Prevent phone gestures
+// ML5 Functions
+function initializeCamera() {
+  lockGestures();  // Prevent phone gestures
 
-//   // Create phone camera
-//   cam = createPhoneCamera(this.cameraMode, this.mirror, this.displayMode);
-//   enableCameraTap();  // Enable tap to toggle video
+  // Create phone camera
+  cam = createPhoneCamera(this.cameraMode, this.mirror, this.displayMode);
+  enableCameraTap();  // Enable tap to toggle video
 
-//   // Wait for camera to be ready before creating model
-//   cam.onReady(() => {
-//     videoReady();
-//   });
+  // Wait for camera to be ready before creating model
+  cam.onReady(() => {
+    videoReady();
+  });
+}
+
+function videoReady() {
+  let options = {
+    maxFaces: 1,
+    refineLandmarks: false,
+    runtime: 'mediapipe',
+    flipHorizontal: false
+  };
+
+  facemesh = ml5.faceMesh(options, () => {
+    debug('FaceMesh model loaded!');
+    facemesh.detectStart(cam.videoElement, (results) => {
+      faces = results;
+    });
+    cameraReady = true;
+  });
+}
+
+// function modelReady() {
+//   // console.log('FaceMesh model loaded!');
+//   debug('FaceMesh model loaded!');
+//   facemesh.detectStart(cam.videoElement, gotFaces);
 // }
 
-// function videoReady() {
-//   let options = {
-//     maxFaces: 1,
-//     refineLandmarks: false,
-//     runtime: 'mediapipe',
-//     flipHorizontal: false
-//   };
-
-//   facemesh = ml5.faceMesh(options, () => {
-//     debug('FaceMesh model loaded!');
-//     facemesh.detectStart(cam.videoElement, (results) => {
-//       faces = results;
-//     });
-//     cameraReady = true;
-//   });
+// function gotFaces(results) {
+//   faces = results;
 // }
 
-// // function modelReady() {
-// //   // console.log('FaceMesh model loaded!');
-// //   debug('FaceMesh model loaded!');
-// //   facemesh.detectStart(cam.videoElement, gotFaces);
-// // }
+function drawFaceTracking() {
+  let face = faces[0];
+  if (!face.keypoints || face.keypoints.length === 0) return;
 
-// // function gotFaces(results) {
-// //   faces = results;
-// // }
+  let trackedKeypoint = face.keypoints[TRACKED_KEYPOINT_INDEX];
+  if (!trackedKeypoint) return;
 
-// function drawFaceTracking() {
-//   let face = faces[0];
-//   if (!face.keypoints || face.keypoints.length === 0) return;
+  cursor = mapKeypointToCanvas(trackedKeypoint);
 
-//   let trackedKeypoint = face.keypoints[TRACKED_KEYPOINT_INDEX];
-//   if (!trackedKeypoint) return;
+  sharedState.facePosition = {
+    x: cursor.x,
+    y: cursor.y,
+    z: cursor.z
+  };
 
-//   cursor = mapKeypointToCanvas(trackedKeypoint);
+  // Draw cursor + crosshair
+  push();
+  fill(...CURSOR_COLOR);
+  noStroke();
+  ellipse(cursor.x, cursor.y, CURSOR_SIZE, CURSOR_SIZE);
 
-//   sharedState.facePosition = {
-//     x: cursor.x,
-//     y: cursor.y,
-//     z: cursor.z
-//   };
+  stroke(CURSOR_COLOR[0], CURSOR_COLOR[1], CURSOR_COLOR[2], 150);
+  strokeWeight(2);
+  line(cursor.x - 15, cursor.y, cursor.x + 15, cursor.y);
+  line(cursor.x, cursor.y - 15, cursor.x, cursor.y + 15);
+  pop();
 
-//   // Draw cursor + crosshair
-//   push();
-//   fill(...CURSOR_COLOR);
-//   noStroke();
-//   ellipse(cursor.x, cursor.y, CURSOR_SIZE, CURSOR_SIZE);
+  // Coordinates text
+  push();
+  fill(255);
+  stroke(0);
+  strokeWeight(3);
+  textAlign(CENTER, TOP);
+  textSize(14);
+  text(
+    `x: ${cursor.x.toFixed(0)}, y: ${cursor.y.toFixed(0)}, z: ${(cursor.z || 0).toFixed(0)}`,
+    cursor.x,
+    cursor.y + CURSOR_SIZE/2 + 10
+  );
+  pop();
 
-//   stroke(CURSOR_COLOR[0], CURSOR_COLOR[1], CURSOR_COLOR[2], 150);
-//   strokeWeight(2);
-//   line(cursor.x - 15, cursor.y, cursor.x + 15, cursor.y);
-//   line(cursor.x, cursor.y - 15, cursor.x, cursor.y + 15);
-//   pop();
+  // Draw all keypoints
+    if (SHOW_ALL_KEYPOINTS) {
+        push();
+        fill(0, 255, 0, 100);
+        noStroke();
+        for (let kp of face.keypoints) {
+            let mapped = mapKeypointToCanvas(kp);
+            ellipse(mapped.x, mapped.y, KEYPOINT_SIZE, KEYPOINT_SIZE);
+        }
+        pop();
+    }
+}
 
-//   // Coordinates text
-//   push();
-//   fill(255);
-//   stroke(0);
-//   strokeWeight(3);
-//   textAlign(CENTER, TOP);
-//   textSize(14);
-//   text(
-//     `x: ${cursor.x.toFixed(0)}, y: ${cursor.y.toFixed(0)}, z: ${(cursor.z || 0).toFixed(0)}`,
-//     cursor.x,
-//     cursor.y + CURSOR_SIZE/2 + 10
-//   );
-//   pop();
+function mapKeypointToCanvas(keypoint) {
+  let x, y, z;
 
-//   // Draw all keypoints
-//     if (SHOW_ALL_KEYPOINTS) {
-//         push();
-//         fill(0, 255, 0, 100);
-//         noStroke();
-//         for (let kp of face.keypoints) {
-//             let mapped = mapKeypointToCanvas(kp);
-//             ellipse(mapped.x, mapped.y, KEYPOINT_SIZE, KEYPOINT_SIZE);
-//         }
-//         pop();
-//     }
-// }
+  if (keypoint.x <= 1 && keypoint.y <= 1) {
+    x = keypoint.x * width;
+    y = keypoint.y * height;
+  } else {
+    x = map(keypoint.x, 0, cam.width, 0, width);
+    y = map(keypoint.y, 0, cam.height, 0, height);
+  }
 
-// function mapKeypointToCanvas(keypoint) {
-//   let x, y, z;
+  x = width - x;
+  z = keypoint.z || 0;
 
-//   if (keypoint.x <= 1 && keypoint.y <= 1) {
-//     x = keypoint.x * width;
-//     y = keypoint.y * height;
-//   } else {
-//     x = map(keypoint.x, 0, cam.width, 0, width);
-//     y = map(keypoint.y, 0, cam.height, 0, height);
-//   }
+  return { x, y, z };
+}
 
-//   x = width - x;
-//   z = keypoint.z || 0;
+function drawUI() {
+  push();
+  fill(255);
+  noStroke();
+  textAlign(CENTER, TOP);
+  textSize(18);
 
-//   return { x, y, z };
-// }
+  if (!cameraReady) {
+    text('Starting camera...', width/2, 20);
+  } else if (!facemesh) {
+    text('Loading FaceMesh model...', width/2, 20);
+  } else if (faces.length === 0) {
+    text('Show your face to start tracking', width/2, 20);
+  } else {
+    let keypointNames = {
+      1: 'Nose Tip',
+      10: 'Top of Face',
+      152: 'Chin',
+      234: 'Left Eye',
+      454: 'Right Eye',
+      13: 'Lips'
+    };
+    let name = keypointNames[TRACKED_KEYPOINT_INDEX] || 'Keypoint ' + TRACKED_KEYPOINT_INDEX;
+    text('Tracking: ' + name, width/2, 20);
+  }
 
-// function drawUI() {
-//   push();
-//   fill(255);
-//   noStroke();
-//   textAlign(CENTER, TOP);
-//   textSize(18);
+  // Bottom indicators
+  textSize(14);
+  fill(200);
+  textAlign(CENTER, BOTTOM);
+  text('Click to toggle video', width/2, height - 20);
 
-//   if (!cameraReady) {
-//     text('Starting camera...', width/2, 20);
-//   } else if (!facemesh) {
-//     text('Loading FaceMesh model...', width/2, 20);
-//   } else if (faces.length === 0) {
-//     text('Show your face to start tracking', width/2, 20);
-//   } else {
-//     let keypointNames = {
-//       1: 'Nose Tip',
-//       10: 'Top of Face',
-//       152: 'Chin',
-//       234: 'Left Eye',
-//       454: 'Right Eye',
-//       13: 'Lips'
-//     };
-//     let name = keypointNames[TRACKED_KEYPOINT_INDEX] || 'Keypoint ' + TRACKED_KEYPOINT_INDEX;
-//     text('Tracking: ' + name, width/2, 20);
-//   }
+  textSize(12);
+  fill(SHOW_VIDEO ? color(0,255,0) : color(150));
+  text('Video: ' + (SHOW_VIDEO ? 'ON' : 'OFF'), width/2, height - 40);
 
-//   // Bottom indicators
-//   textSize(14);
-//   fill(200);
-//   textAlign(CENTER, BOTTOM);
-//   text('Click to toggle video', width/2, height - 20);
+  fill(SHOW_ALL_KEYPOINTS ? color(0,255,0) : color(150));
+  text('All Keypoints: ' + (SHOW_ALL_KEYPOINTS ? 'ON' : 'OFF'), width/2, height - 55);
 
-//   textSize(12);
-//   fill(SHOW_VIDEO ? color(0,255,0) : color(150));
-//   text('Video: ' + (SHOW_VIDEO ? 'ON' : 'OFF'), width/2, height - 40);
+  pop();
+}
 
-//   fill(SHOW_ALL_KEYPOINTS ? color(0,255,0) : color(150));
-//   text('All Keypoints: ' + (SHOW_ALL_KEYPOINTS ? 'ON' : 'OFF'), width/2, height - 55);
+function mousePressed() {
+  SHOW_VIDEO = !SHOW_VIDEO;
+  return false;
+}
 
-//   pop();
-// }
+function touchStarted() {
+  SHOW_VIDEO = !SHOW_VIDEO;
+  return false;
+}
 
-// function mousePressed() {
-//   SHOW_VIDEO = !SHOW_VIDEO;
-//   return false;
-// }
-
-// function touchStarted() {
-//   SHOW_VIDEO = !SHOW_VIDEO;
-//   return false;
-// }
-
-// function windowResized() {
-//   resizeCanvas(windowWidth, windowHeight);
-// }
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
