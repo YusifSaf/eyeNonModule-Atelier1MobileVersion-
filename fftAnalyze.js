@@ -26,7 +26,7 @@ function setup() {
     showDebug();
 
     mic = new p5.AudioIn(); // initialize mic
-    // enableMicTap("Press to What the f Mic");
+    enableMicTap("Press to What the f Mic");
 
     // initializeCamera();
     //wtf
