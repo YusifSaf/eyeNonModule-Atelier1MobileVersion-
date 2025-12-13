@@ -55,8 +55,8 @@ function setup() {
 function draw() {
     //FFT Draw
     background(0);
-    // let spectrum = fft.analyze(); // get frequency spectrum
-    // sharedState.fftData.size = fft.getEnergy(energyRange);
+    let spectrum = fft.analyze(); // get frequency spectrum
+    sharedState.fftData.size = fft.getEnergy(energyRange);
     // // FFT Visualiser to debug
     //  fftVisualiserDebug();
     
