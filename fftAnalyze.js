@@ -26,7 +26,7 @@ function setup() {
     showDebug();
 
     mic = new p5.AudioIn(); // initialize mic
-    enableMicTap("Press to What the f Mic");
+    // enableMicTap("Press to What the f Mic");
 
     initializeCamera();
     //wtf
@@ -45,18 +45,18 @@ function setup() {
 
     
     // FFT Setup
-    mic.start();            // start capturing audio
+    // mic.start();            // start capturing audio
 
-    fft = new p5.FFT();     // initialize FFT
-    fft.setInput(mic);      // connect mic to FFT
+    // fft = new p5.FFT();     // initialize FFT
+    // fft.setInput(mic);      // connect mic to FFT
     
 }
 
 function draw() {
     //FFT Draw
     background(0);
-    let spectrum = fft.analyze(); // get frequency spectrum
-    sharedState.fftData.size = fft.getEnergy(energyRange);
+    // let spectrum = fft.analyze(); // get frequency spectrum
+    // sharedState.fftData.size = fft.getEnergy(energyRange);
     // // FFT Visualiser to debug
     //  fftVisualiserDebug();
     
@@ -81,15 +81,15 @@ function draw() {
     // debug(sharedState.fftData.size);
 }
 
-function fftVisualiserDebug(){
-    noStroke();
-    fill(0, 255, 0);
-    for (let i = 0; i < spectrum.length; i++) {
-    let x = map(i, 0, spectrum.length, 0, width);
-    let h = map(spectrum[i], 0, 255, 0, height);
-    rect(x, height - h, width / spectrum.length, h);
-    }
-}
+// function fftVisualiserDebug(){
+//     noStroke();
+//     fill(0, 255, 0);
+//     for (let i = 0; i < spectrum.length; i++) {
+//     let x = map(i, 0, spectrum.length, 0, width);
+//     let h = map(spectrum[i], 0, 255, 0, height);
+//     rect(x, height - h, width / spectrum.length, h);
+//     }
+// }
 
 // ML5 Functions
 function initializeCamera() {
